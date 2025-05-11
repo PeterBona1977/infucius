@@ -10,6 +10,7 @@ const nextConfig = {
     
     return config;
   },
+  // Add the required configurations
   eslint: {
     ignoreDuringBuilds: true,
   },

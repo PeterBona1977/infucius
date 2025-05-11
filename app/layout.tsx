@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "INFUCIUS - Tea Fortune",
   description: "Discover personalized tea-inspired messages with every scan",
   icons: {
-    icon: "/images/infucius-logo.png",
+    icon: "/images/logo.png",
   },
     generator: 'v0.dev'
 }

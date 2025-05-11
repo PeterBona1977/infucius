@@ -65,7 +65,7 @@ function HeaderContent() {
                     <Link href="/" className="flex items-center justify-center" onClick={() => setIsOpen(false)}>
                       <div className="relative">
                         <img
-                          src="/images/infucius-logo.png"
+                          src="/placeholder.svg?key=6unoo"
                           alt="INFUCIUS"
                           className="object-contain"
                           width={75}
@@ -157,7 +157,7 @@ function HeaderContent() {
           {/* Center section: Logo */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="flex items-center justify-center">
-              <img src="/images/infucius-logo.png" alt="INFUCIUS" className="object-contain h-[60px] w-auto" />
+              <img src="/placeholder.svg?key=furgb" alt="INFUCIUS" className="object-contain h-[60px] w-auto" />
             </Link>
           </div>
 
