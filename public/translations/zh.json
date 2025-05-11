@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "首页",
+    "scanQR": "扫描二维码",
+    "shop": "商店",
+    "myMessages": "我的消息",
+    "adminDashboard": "管理员面板",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "myAccount": "我的账户",
+    "profile": "个人资料",
+    "messageHistory": "消息历史",
+    "orders": "订单"
+  },
+  "hero": {
+    "title": "发现您的个性化消息",
+    "subtitle": "扫描，品尝，发现专为您定制的消息。"
+  },
+  "teaThemes": {
+    "shopNow": "立即购买"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "common": {
+    "home": "Início",
+    "scanQR": "Digitalizar QR",
+    "shop": "Loja",
+    "myMessages": "Minhas Mensagens",
+    "adminDashboard": "Painel de Administração",
+    "login": "Entrar",
+    "register": "Registar",
+    "logout": "Sair",
+    "myAccount": "Minha Conta",
+    "profile": "Perfil",
+    "messageHistory": "Histórico de Mensagens",
+    "orders": "Encomendas",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title": "Descubra a Sua Mensagem Personalizada",
+    "subtitle": "Digitalize, saboreie e descubra mensagens criadas exclusivamente para si."
+  },
+  "shop": {
+    "title": "Compre a Nossa Coleção de Chá"
+  },
+  "cart": {
+    "title": "O Seu Carrinho de Compras",
+    "items": "Itens do Carrinho",
+    "itemsDescription": "Itens que adicionou ao seu carrinho",
+    "empty": "O seu carrinho está vazio",
+    "emptyDescription": "Adicione alguns produtos de chá ao seu carrinho para os ver aqui.",
+    "browseShop": "Explorar Loja",
+    "orderSummary": "Resumo da Encomenda",
+    "subtotal": "Subtotal",
+    "shipping": "Envio",
+    "tax": "Imposto",
+    "total": "Total",
+    "checkout": "Finalizar Compra",
+    "promoCode": "Tem um Código Promocional?",
+    "enterPromoCode": "Introduza o código promocional",
+    "apply": "Aplicar"
+  },
+  "footer": {
+    "tagline": "Descubra mensagens personalizadas inspiradas em chá a cada digitalização.",
+    "terms": "Termos",
+    "privacy": "Privacidade",
+    "contact": "Contacto",
+    "allRightsReserved": "Todos os direitos reservados."
+  },
+  "teaThemes": {
+    "shopNow": "Comprar Agora",
+    "inspiration": {
+      "name": "Inspiração",
+      "description": "Acenda a sua faísca criativa"
+    },
+    "serenity": {
+      "name": "Serenidade",
+      "description": "Encontre a sua paz interior"
+    },
+    "adventure": {
+      "name": "Aventura",
+      "description": "Embarque em novas jornadas"
+    },
+    "joy": {
+      "name": "Alegria",
+      "description": "Celebre os momentos da vida"
+    },
+    "well-being": {
+      "name": "Bem-estar",
+      "description": "Nutra corpo e mente"
+    },
+    "mysticism": {
+      "name": "Misticismo",
+      "description": "Explore o desconhecido"
+    },
+    "introspection": {
+      "name": "Introspecção",
+      "description": "Viaje para dentro de si mesmo"
+    }
+  }
+}

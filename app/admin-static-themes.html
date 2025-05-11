@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Themes - Static HTML</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      color: #111827;
+    }
+    
+    .header {
+      background-color: #1f2937;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-title {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    
+    .header-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .button-primary {
+      background-color: #3b82f6;
+      color: white;
+    }
+    
+    .button-secondary {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    
+    .theme-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .theme-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-info h3 {
+      font-weight: 500;
+      margin: 0 0 0.25rem 0;
+    }
+    
+    .theme-info p {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .theme-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .badge-success {
+      background-color: #10b981;
+    }
+    
+    .badge-danger {
+      background-color: #ef4444;
+    }
+    
+    .action-button {
+      padding: 0.25rem 0.75rem;
+      background-color: #e5e7eb;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">Infucius Admin (Static HTML)</div>
+    <a href="/" class="header-link">Back to Site</a>
+  </div>
+  
+  <div class="container">
+    <div class="page-header">
+      <a href="/admin-static.html" class="button button-secondary">Back to Dashboard</a>
+      <h1 class="page-title">Tea Themes Management</h1>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Tea Themes</h2>
+        <a href="/admin-static-new-theme.html" class="button button-primary">Create New Theme</a>
+      </div>
+      
+      <div class="theme-list">
+        <div class="theme-item">
+          <div class="theme-info">
+            <h3>Inspiration</h3>
+            <p>A blend designed to ignite your creative spark and fuel your imagination.</p>
+          </div>
+          <div class="theme-actions">
+            <span class="badge badge-success">Active</span>
+            <a href="/admin-static-edit-theme.html?id=inspiration" class="action-button">Edit</a>
+            <a href="/admin-static-qr-codes.html?id=inspiration" class="action-button">QR Codes</a>
+            <a href="/admin-static-messages.html?id=inspiration" class="action-button">Messages</a>
+          </div>
+        </div>
+        
+        <div class="theme-item">
+          <div class="theme-info">
+            <h3>Serenity</h3>
+            <p>Find your center with this calming blend that promotes peace and tranquility.</p>
+          </div>
+          <div class="theme-actions">
+            <span class="badge badge-success">Active</span>
+            <a href="/admin-static-edit-theme.html?id=serenity" class="action-button">Edit</a>
+            <a href="/admin-static-qr-codes.html?id=serenity" class="action-button">QR Codes</a>
+            <a href="/admin-static-messages.html?id=serenity" class="action-button">Messages</a>
+          </div>
+        </div>
+        
+        <div class="theme-item">
+          <div class="theme-info">
+            <h3>Adventure</h3>
+            <p>Embark on new journeys with this bold blend that awakens your spirit of exploration.</p>
+          </div>
+          <div class="theme-actions">
+            <span class="badge badge-success">Active</span>
+            <a href="/admin-static-edit-theme.html?id=adventure" class="action-button">Edit</a>
+            <a href="/admin-static-qr-codes.html?id=adventure" class="action-button">QR Codes</a>
+            <a href="/admin-static-messages.html?id=adventure" class="action-button">Messages</a>
+          </div>
+        </div>
+        
+        <div class="theme-item">
+          <div class="theme-info">
+            <h3>Joy</h3>
+            <p>Celebrate life's moments with this uplifting blend that brings happiness with every sip.</p>
+          </div>
+          <div class="theme-actions">
+            <span class="badge badge-danger">Inactive</span>
+            <a href="/admin-static-edit-theme.html?id=joy" class="action-button">Edit</a>
+            <a href="/admin-static-qr-codes.html?id=joy" class="action-button">QR Codes</a>
+            <a href="/admin-static-messages.html?id=joy" class="action-button">Messages</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

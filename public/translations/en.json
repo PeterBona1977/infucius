@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "Home",
+    "scanQR": "Scan QR",
+    "shop": "Shop",
+    "myMessages": "My Messages",
+    "adminDashboard": "Admin Dashboard",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "myAccount": "My Account",
+    "profile": "Profile",
+    "messageHistory": "Message History",
+    "orders": "Orders"
+  },
+  "hero": {
+    "title": "Discover Your Personalized Message",
+    "subtitle": "Scan, sip, and discover messages uniquely crafted for you."
+  },
+  "teaThemes": {
+    "shopNow": "Shop Now"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "홈",
+    "scanQR": "QR 스캔",
+    "shop": "상점",
+    "myMessages": "내 메시지",
+    "adminDashboard": "관리자 대시보드",
+    "login": "로그인",
+    "register": "회원가입",
+    "logout": "로그아웃",
+    "myAccount": "내 계정",
+    "profile": "프로필",
+    "messageHistory": "메시지 기록",
+    "orders": "주문"
+  },
+  "hero": {
+    "title": "맞춤형 메시지 발견하기",
+    "subtitle": "스캔하고, 차를 마시며, 당신만을 위해 만들어진 메시지를 발견하세요."
+  },
+  "teaThemes": {
+    "shopNow": "지금 구매하기"
+  }
+}

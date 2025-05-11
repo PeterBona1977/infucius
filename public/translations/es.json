@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "Inicio",
+    "scanQR": "Escanear QR",
+    "shop": "Tienda",
+    "myMessages": "Mis Mensajes",
+    "adminDashboard": "Panel de Administración",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "myAccount": "Mi Cuenta",
+    "profile": "Perfil",
+    "messageHistory": "Historial de Mensajes",
+    "orders": "Pedidos"
+  },
+  "hero": {
+    "title": "Descubre Tu Mensaje Personalizado",
+    "subtitle": "Escanea, sorbe y descubre mensajes creados exclusivamente para ti."
+  },
+  "teaThemes": {
+    "shopNow": "Comprar Ahora"
+  }
+}

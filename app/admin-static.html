@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Static HTML</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      color: #111827;
+    }
+    
+    .header {
+      background-color: #1f2937;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-title {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    
+    .header-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-description {
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+      color: #6b7280;
+    }
+    
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .button-primary {
+      background-color: #3b82f6;
+      color: white;
+    }
+    
+    .button-secondary {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .stat-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+      padding: 1rem;
+    }
+    
+    .stat-title {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .activity-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .activity-item {
+      padding: 0.75rem;
+      border-left: 4px solid #3b82f6;
+      background-color: #f9fafb;
+      margin-bottom: 0.5rem;
+    }
+    
+    .activity-item.green {
+      border-left-color: #10b981;
+    }
+    
+    .activity-item.yellow {
+      border-left-color: #f59e0b;
+    }
+    
+    .activity-title {
+      font-weight: 500;
+    }
+    
+    .activity-time {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">Infucius Admin (Static HTML)</div>
+    <a href="/" class="header-link">Back to Site</a>
+  </div>
+  
+  <div class="container">
+    <h1 class="page-title">Static HTML Admin Dashboard</h1>
+    <p class="page-description">This is a completely static HTML page with no JavaScript or external dependencies</p>
+    
+    <div class="card">
+      <h2 class="card-title">Navigation</h2>
+      <div class="button-group">
+        <a href="/" class="button button-primary">Back to Home</a>
+        <a href="/admin-static-themes.html" class="button button-secondary">Themes</a>
+        <a href="/admin-static-content.html" class="button button-secondary">Content</a>
+        <a href="/admin-static-orders.html" class="button button-secondary">Orders</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h2 class="card-title">Quick Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Total Users</div>
+          <div class="stat-value">127</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">QR Scans</div>
+          <div class="stat-value">543</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Revenue</div>
+          <div class="stat-value">$2,845</div>
+        </div>
+      </div>
+    </div>
+    
+    <h2 class="card-title">Recent Activity</h2>
+    <ul class="activity-list">
+      <li class="activity-item">
+        <div class="activity-title">New Order #ORD-005</div>
+        <div class="activity-time">Today at 10:23 AM</div>
+      </li>
+      <li class="activity-item green">
+        <div class="activity-title">User Registration: alice@example.com</div>
+        <div class="activity-time">Yesterday at 3:45 PM</div>
+      </li>
+      <li class="activity-item yellow">
+        <div class="activity-title">Content Updated: About Page</div>
+        <div class="activity-time">Yesterday at 1:12 PM</div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

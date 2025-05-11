@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "Startseite",
+    "scanQR": "QR Scannen",
+    "shop": "Shop",
+    "myMessages": "Meine Nachrichten",
+    "adminDashboard": "Admin-Dashboard",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "myAccount": "Mein Konto",
+    "profile": "Profil",
+    "messageHistory": "Nachrichtenverlauf",
+    "orders": "Bestellungen"
+  },
+  "hero": {
+    "title": "Entdecken Sie Ihre Persönliche Nachricht",
+    "subtitle": "Scannen, nippen und entdecken Sie Nachrichten, die speziell für Sie erstellt wurden."
+  },
+  "teaThemes": {
+    "shopNow": "Jetzt Kaufen"
+  }
+}

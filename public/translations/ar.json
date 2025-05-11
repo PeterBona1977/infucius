@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "الرئيسية",
+    "scanQR": "مسح رمز QR",
+    "shop": "المتجر",
+    "myMessages": "رسائلي",
+    "adminDashboard": "لوحة الإدارة",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "logout": "تسجيل الخروج",
+    "myAccount": "حسابي",
+    "profile": "الملف الشخصي",
+    "messageHistory": "سجل الرسائل",
+    "orders": "الطلبات"
+  },
+  "hero": {
+    "title": "اكتشف رسالتك الشخصية",
+    "subtitle": "امسح، ارتشف، واكتشف رسائل مصممة خصيصًا لك."
+  },
+  "teaThemes": {
+    "shopNow": "تسوق الآن"
+  }
+}

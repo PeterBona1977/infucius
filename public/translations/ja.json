@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "ホーム",
+    "scanQR": "QRスキャン",
+    "shop": "ショップ",
+    "myMessages": "メッセージ履歴",
+    "adminDashboard": "管理パネル",
+    "login": "ログイン",
+    "register": "登録",
+    "logout": "ログアウト",
+    "myAccount": "マイアカウント",
+    "profile": "プロフィール",
+    "messageHistory": "メッセージ履歴",
+    "orders": "注文履歴"
+  },
+  "hero": {
+    "title": "あなただけのメッセージを発見",
+    "subtitle": "スキャンして、お茶を楽しみながら、あなたのために作られたメッセージを発見しましょう。"
+  },
+  "teaThemes": {
+    "shopNow": "今すぐ購入"
+  }
+}
