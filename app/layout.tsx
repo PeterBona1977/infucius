@@ -7,6 +7,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { AuthProvider } from "@/contexts/auth-context"
 import { LanguageProvider } from "@/contexts/language-context"
+import Script from "next/script"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,6 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Force reload of favicon */}
+        <link rel="icon" href="/images/logo.png?v=2" />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <LanguageProvider>
@@ -38,6 +43,7 @@ export default function RootLayout({
             </ThemeProvider>
           </LanguageProvider>
         </AuthProvider>
+        <Script src="/js/logo-fix.js" />
       </body>
     </html>
   )

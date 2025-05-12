@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Menu, Scan, User, Home, ShoppingBag, History, X, Settings } from "lucide-react"
@@ -34,6 +34,12 @@ function HeaderContent() {
   const [isOpen, setIsOpen] = useState(false)
   const { user, loading, logout } = useAuth()
   const { t } = useLanguage()
+  const [logoUrl, setLogoUrl] = useState("/images/logo.png")
+
+  // Force browser to reload the image by adding a cache-busting query parameter
+  useEffect(() => {
+    setLogoUrl(`/images/logo.png?v=${new Date().getTime()}`)
+  }, [])
 
   const routes = [
     { href: "/", label: t("common.home") || "Home", icon: Home },
@@ -65,11 +71,14 @@ function HeaderContent() {
                     <Link href="/" className="flex items-center justify-center" onClick={() => setIsOpen(false)}>
                       <div className="relative">
                         <img
-                          src="/placeholder.svg?key=6unoo"
+                          src={logoUrl || "/placeholder.svg"}
                           alt="INFUCIUS"
-                          className="object-contain"
-                          width={75}
-                          height={75}
+                          className="object-contain w-[100px] h-[100px]"
+                          onError={(e) => {
+                            // Fallback if image fails to load
+                            e.currentTarget.onerror = null
+                            e.currentTarget.src = "/placeholder.svg?height=100&width=100"
+                          }}
                         />
                       </div>
                     </Link>
@@ -157,7 +166,16 @@ function HeaderContent() {
           {/* Center section: Logo */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="flex items-center justify-center">
-              <img src="/placeholder.svg?key=furgb" alt="INFUCIUS" className="object-contain h-[60px] w-auto" />
+              <img
+                src={logoUrl || "/placeholder.svg"}
+                alt="INFUCIUS"
+                className="object-contain h-[70px] w-auto"
+                onError={(e) => {
+                  // Fallback if image fails to load
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = "/placeholder.svg?height=70&width=70"
+                }}
+              />
             </Link>
           </div>
 
