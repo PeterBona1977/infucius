@@ -14,6 +14,7 @@ const teaThemes = [
     description: "Ignite your creative spark",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-amber-100",
+    price: 19.99,
   },
   {
     id: "serenity",
@@ -21,6 +22,7 @@ const teaThemes = [
     description: "Find your inner peace",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-blue-100",
+    price: 18.99,
   },
   {
     id: "adventure",
@@ -28,6 +30,7 @@ const teaThemes = [
     description: "Embark on new journeys",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-green-100",
+    price: 21.99,
   },
   {
     id: "joy",
@@ -35,6 +38,7 @@ const teaThemes = [
     description: "Celebrate life's moments",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-yellow-100",
+    price: 17.99,
   },
   {
     id: "well-being",
@@ -42,6 +46,7 @@ const teaThemes = [
     description: "Nurture body and mind",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-red-100",
+    price: 22.99,
   },
   {
     id: "mysticism",
@@ -49,6 +54,7 @@ const teaThemes = [
     description: "Explore the unknown",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-purple-100",
+    price: 24.99,
   },
   {
     id: "introspection",
@@ -56,6 +62,7 @@ const teaThemes = [
     description: "Journey within yourself",
     image: "/placeholder.svg?height=200&width=200",
     color: "bg-indigo-100",
+    price: 20.99,
   },
 ]
 
@@ -85,6 +92,9 @@ function TeaThemeContent() {
           </div>
           <CardContent className="p-4">
             <h3 className="font-semibold text-lg">{t(`teaThemes.${theme.id}.name`) || theme.name}</h3>
+            <div className="mt-1 mb-2">
+              <span className="font-bold text-lg">${theme.price.toFixed(2)}</span>
+            </div>
             <p className="text-sm text-muted-foreground">
               {t(`teaThemes.${theme.id}.description`) || theme.description}
             </p>
