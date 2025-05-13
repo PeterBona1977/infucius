@@ -1,27 +1,48 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
 import { useAuth } from "@/contexts/auth-context"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
-  const { login, loginWithCredentials, loading } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { toast } = useToast()
+  const { login, loginWithCredentials, loading } = useAuth()
 
-  // Find the handleSubmit function and update it to redirect admins to the admin dashboard
+  // Check for error from NextAuth
+  useEffect(() => {
+    const errorMessage = searchParams?.get("error")
+    if (errorMessage) {
+      setError(
+        errorMessage === "OAuthAccountNotLinked"
+          ? "Email already used with different provider"
+          : "Authentication error. Please try again.",
+      )
+
+      toast({
+        title: "Authentication Error",
+        description: "There was a problem signing you in. Please try again.",
+        variant: "destructive",
+      })
+    }
+  }, [searchParams, toast])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    setIsLoading(true)
 
     try {
       await loginWithCredentials(email, password)
@@ -40,11 +61,18 @@ export default function LoginPage() {
       }
     } catch (err) {
       setError("Invalid email or password")
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  // Also update the handleSocialLogin function to do the same check
   const handleSocialLogin = async (provider: string) => {
+    setIsLoading(true)
     try {
       await login(provider)
 
@@ -61,7 +89,15 @@ export default function LoginPage() {
         router.push("/")
       }
     } catch (err) {
+      console.error("Social login error:", err)
       setError(`Error logging in with ${provider}`)
+      toast({
+        title: "Login Failed",
+        description: `Error logging in with ${provider}`,
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -80,16 +116,21 @@ export default function LoginPage() {
           {error && <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded">{error}</div>}
 
           <div className="space-y-2">
-            <Button className="w-full" variant="outline" onClick={() => handleSocialLogin("google")} disabled={loading}>
-              Continue with Google
+            <Button
+              className="w-full"
+              variant="outline"
+              onClick={() => handleSocialLogin("google")}
+              disabled={isLoading || loading}
+            >
+              {isLoading || loading ? "Loading..." : "Continue with Google"}
             </Button>
             <Button
               className="w-full"
               variant="outline"
               onClick={() => handleSocialLogin("facebook")}
-              disabled={loading}
+              disabled={isLoading || loading}
             >
-              Continue with Facebook
+              {isLoading || loading ? "Loading..." : "Continue with Facebook"}
             </Button>
           </div>
 
@@ -129,8 +170,8 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
+            <Button type="submit" className="w-full" disabled={isLoading || loading}>
+              {isLoading || loading ? "Logging in..." : "Login"}
             </Button>
           </form>
         </CardContent>

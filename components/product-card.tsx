@@ -1,48 +1,60 @@
-import Link from "next/link"
+"use client"
+
 import Image from "next/image"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card"
 import { AddToCartButton } from "@/components/add-to-cart-button"
 
 interface ProductCardProps {
-  product: any
-  showAddToCart?: boolean
+  id: string
+  name: string
+  description?: string
+  price: number
+  salePrice?: number
+  imageSrc?: string
+  themeId?: string
 }
 
-export function ProductCard({ product, showAddToCart = true }: ProductCardProps) {
+export function ProductCard({ id, name, description, price, salePrice, imageSrc, themeId }: ProductCardProps) {
+  const isOnSale = salePrice !== undefined && salePrice < price
+  const displayPrice = isOnSale ? salePrice : price
+
   return (
-    <Card className="overflow-hidden h-full flex flex-col">
-      <div className="aspect-square relative">
-        <Image
-          src={product.product_images?.[0]?.url || "/placeholder.svg?height=300&width=300"}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
-        {product.sale_price && (
-          <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">SALE</div>
-        )}
-      </div>
-      <CardContent className="p-4 flex-grow">
-        <h3 className="font-semibold text-lg">{product.name}</h3>
-        <div className="flex items-center gap-2 mt-1">
-          {product.sale_price ? (
-            <>
-              <span className="font-bold">${product.sale_price.toFixed(2)}</span>
-              <span className="text-sm text-muted-foreground line-through">${product.price.toFixed(2)}</span>
-            </>
-          ) : (
-            <span className="font-bold">${product.price.toFixed(2)}</span>
+    <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+      <div className="relative aspect-square overflow-hidden">
+        <Link href={`/shop/product/${id}`}>
+          <Image
+            src={imageSrc || `/placeholder.svg?height=300&width=300&text=${encodeURIComponent(name)}`}
+            alt={name}
+            fill
+            className="object-cover transition-transform duration-300 hover:scale-105"
+          />
+          {isOnSale && (
+            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">SALE</div>
           )}
+        </Link>
+      </div>
+      <CardContent className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <Link href={`/shop/product/${id}`} className="hover:underline">
+            <h3 className="font-medium text-lg line-clamp-1">{name}</h3>
+          </Link>
+          <AddToCartButton productId={id} size="sm" />
         </div>
-        <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{product.short_description}</p>
+
+        {description && <p className="text-sm text-gray-500 line-clamp-2 mb-2">{description}</p>}
+
+        <div className="flex items-center">
+          <span className="font-bold text-lg">${displayPrice.toFixed(2)}</span>
+          {isOnSale && <span className="ml-2 text-sm text-gray-500 line-through">${price.toFixed(2)}</span>}
+        </div>
+
+        {themeId && (
+          <Link href={`/shop/${themeId}`} className="text-xs text-blue-600 hover:underline mt-2 block">
+            View collection
+          </Link>
+        )}
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex gap-2">
-        <Button asChild variant="outline" className="flex-1">
-          <Link href={`/shop/product/${product.id}`}>View</Link>
-        </Button>
-        {showAddToCart && <AddToCartButton productId={product.id} />}
-      </CardFooter>
     </Card>
   )
 }

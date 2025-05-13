@@ -1,17 +1,16 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
+import { signIn, useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { SocialLoginButton } from "@/components/social-login-button"
-import { useAuth } from "@/contexts/auth-context"
+import { useToast } from "@/hooks/use-toast"
 
 export default function RegisterPage() {
   const [name, setName] = useState("")
@@ -19,13 +18,36 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
+  const [error, setError] = useState("")
   const router = useRouter()
-  const { user, loading, login, loginWithCredentials } = useAuth()
+  const searchParams = useSearchParams()
+  const { data: session, status } = useSession()
+  const { toast } = useToast()
 
-  // If the user is already logged in, redirect to home
-  if (!loading && user) {
-    router.push("/")
-  }
+  // Check for error from NextAuth
+  useEffect(() => {
+    const errorMessage = searchParams?.get("error")
+    if (errorMessage) {
+      setError(
+        errorMessage === "OAuthAccountNotLinked"
+          ? "Email already used with different provider"
+          : "Authentication error. Please try again.",
+      )
+
+      toast({
+        title: "Authentication Error",
+        description: "There was a problem signing you in. Please try again.",
+        variant: "destructive",
+      })
+    }
+  }, [searchParams, toast])
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      router.push("/")
+    }
+  }, [status, session, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,10 +59,16 @@ export default function RegisterPage() {
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // This simulates registering and logging in
-      await loginWithCredentials(email, password)
+      await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      })
+
       router.push("/")
     } catch (error) {
       console.error("Registration error:", error)
+      setError("Registration failed. Please try again.")
     } finally {
       setIsLoading(false)
     }
@@ -49,16 +77,19 @@ export default function RegisterPage() {
   const handleSocialLogin = async (provider: string) => {
     setSocialLoading(provider)
     try {
-      await login(provider)
-      router.push("/")
+      await signIn(provider, {
+        callbackUrl: "/",
+        redirect: true,
+      })
     } catch (error) {
       console.error("Social login error:", error)
+      setError(`Error logging in with ${provider}`)
     } finally {
       setSocialLoading(null)
     }
   }
 
-  if (loading) {
+  if (status === "loading") {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>
   }
 
@@ -70,17 +101,25 @@ export default function RegisterPage() {
           <CardDescription className="text-center">Enter your information to create an account</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {error && <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded">{error}</div>}
+
           <div className="space-y-2">
-            <SocialLoginButton
-              provider="google"
+            <Button
+              className="w-full"
+              variant="outline"
               onClick={() => handleSocialLogin("google")}
-              isLoading={socialLoading === "google"}
-            />
-            <SocialLoginButton
-              provider="facebook"
+              disabled={!!socialLoading}
+            >
+              {socialLoading === "google" ? "Loading..." : "Continue with Google"}
+            </Button>
+            <Button
+              className="w-full"
+              variant="outline"
               onClick={() => handleSocialLogin("facebook")}
-              isLoading={socialLoading === "facebook"}
-            />
+              disabled={!!socialLoading}
+            >
+              {socialLoading === "facebook" ? "Loading..." : "Continue with Facebook"}
+            </Button>
           </div>
 
           <div className="relative">

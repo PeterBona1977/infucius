@@ -34,32 +34,46 @@ export async function GET(request: Request) {
 // Add item to cart
 export async function POST(request: Request) {
   try {
-    const { productId, quantity = 1 } = await request.json()
+    console.log("POST /api/cart - Starting")
+
+    const body = await request.json()
+    console.log("Request body:", body)
+
+    const { productId, quantity = 1 } = body
 
     if (!productId) {
+      console.log("Missing productId")
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
     }
 
     // Create server client
     const supabase = createServerClient()
+    console.log("Supabase client created")
 
     // Get user session
     const {
       data: { session },
     } = await supabase.auth.getSession()
 
+    console.log("Session:", session ? "Found" : "Not found")
+
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    console.log(`Adding product ${productId} to cart for user ${session.user.id}`)
+
     // Add to cart
     const cartItem = await addToCart(session.user.id, productId, quantity)
+    console.log("Cart item added:", cartItem)
 
     // Get updated cart
     const cart = await getUserCart(session.user.id)
+    console.log("Updated cart retrieved")
 
     // Calculate cart totals
     const totals = await getCartTotal(cart)
+    console.log("Cart totals calculated")
 
     return NextResponse.json({ cartItem, cart: { ...cart, ...totals } })
   } catch (error: any) {

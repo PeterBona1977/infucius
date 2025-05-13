@@ -238,81 +238,126 @@ export async function deleteMessageTemplate(id: string) {
 
 // Carts
 export async function getUserCart(userId: string) {
-  // First, check if the user has a cart
-  const { data: carts, error: cartError } = await supabase.from("carts").select("*").eq("user_id", userId).limit(1)
+  console.log(`getUserCart: Fetching cart for user ${userId}`)
 
-  if (cartError) {
-    console.error(`Error fetching cart for user ${userId}:`, cartError)
-    throw cartError
-  }
+  try {
+    // First, check if the user has a cart
+    const { data: carts, error: cartError } = await supabase.from("carts").select("*").eq("user_id", userId).limit(1)
 
-  // If no cart exists, create one
-  if (carts.length === 0) {
-    const { data: newCart, error: createError } = await supabase
-      .from("carts")
-      .insert({ user_id: userId })
-      .select()
-      .single()
-
-    if (createError) {
-      console.error(`Error creating cart for user ${userId}:`, createError)
-      throw createError
+    if (cartError) {
+      console.error(`Error fetching cart for user ${userId}:`, cartError)
+      throw cartError
     }
 
-    return { ...newCart, items: [] }
+    console.log(`getUserCart: Found ${carts.length} carts for user`)
+
+    // If no cart exists, create one
+    if (carts.length === 0) {
+      console.log(`getUserCart: No cart found, creating new cart for user ${userId}`)
+
+      const { data: newCart, error: createError } = await supabase
+        .from("carts")
+        .insert({ user_id: userId })
+        .select()
+        .single()
+
+      if (createError) {
+        console.error(`Error creating cart for user ${userId}:`, createError)
+        throw createError
+      }
+
+      console.log(`getUserCart: New cart created with ID ${newCart.id}`)
+      return { ...newCart, items: [] }
+    }
+
+    // Get cart items
+    const cartId = carts[0].id
+    console.log(`getUserCart: Fetching items for cart ${cartId}`)
+
+    const { data: cartItems, error: itemsError } = await supabase
+      .from("cart_items")
+      .select("*, products(*)")
+      .eq("cart_id", cartId)
+
+    if (itemsError) {
+      console.error(`Error fetching cart items for cart ${cartId}:`, itemsError)
+      throw itemsError
+    }
+
+    console.log(`getUserCart: Found ${cartItems?.length || 0} items in cart`)
+    return { ...carts[0], items: cartItems || [] }
+  } catch (error) {
+    console.error("Error in getUserCart:", error)
+    throw error
   }
-
-  // Get cart items
-  const cartId = carts[0].id
-  const { data: cartItems, error: itemsError } = await supabase
-    .from("cart_items")
-    .select("*, products(*)")
-    .eq("cart_id", cartId)
-
-  if (itemsError) {
-    console.error(`Error fetching cart items for cart ${cartId}:`, itemsError)
-    throw itemsError
-  }
-
-  return { ...carts[0], items: cartItems || [] }
 }
 
 export async function addToCart(userId: string, productId: string, quantity = 1) {
-  // Get user's cart
-  const cart = await getUserCart(userId)
+  console.log(`addToCart: Adding product ${productId} to cart for user ${userId}`)
 
-  // Check if item already exists in cart
-  const existingItem = cart.items.find((item: any) => item.product_id === productId)
-
-  if (existingItem) {
-    // Update quantity
-    const { data, error } = await supabase
-      .from("cart_items")
-      .update({ quantity: existingItem.quantity + quantity })
-      .eq("id", existingItem.id)
-      .select()
+  try {
+    // First, verify the product exists
+    const { data: product, error: productError } = await supabase
+      .from("products")
+      .select("id")
+      .eq("id", productId)
       .single()
 
-    if (error) {
-      console.error(`Error updating cart item ${existingItem.id}:`, error)
-      throw error
+    if (productError) {
+      console.error(`Product ${productId} not found:`, productError)
+      throw new Error(`Product not found: ${productError.message}`)
     }
 
-    return data
-  } else {
-    // Add new item
-    const { data, error } = await supabase
-      .from("cart_items")
-      .insert({ cart_id: cart.id, product_id: productId, quantity })
-      .select()
-      .single()
+    console.log(`addToCart: Product ${productId} verified`)
 
-    if (error) {
-      console.error(`Error adding item to cart ${cart.id}:`, error)
-      throw error
+    // Get user's cart
+    const cart = await getUserCart(userId)
+    console.log(`addToCart: Got cart with ID ${cart.id}`)
+
+    // Check if item already exists in cart
+    const existingItem = cart.items.find((item: any) => item.product_id === productId)
+
+    if (existingItem) {
+      console.log(
+        `addToCart: Item already exists in cart, updating quantity from ${existingItem.quantity} to ${existingItem.quantity + quantity}`,
+      )
+
+      // Update quantity
+      const { data, error } = await supabase
+        .from("cart_items")
+        .update({ quantity: existingItem.quantity + quantity })
+        .eq("id", existingItem.id)
+        .select()
+        .single()
+
+      if (error) {
+        console.error(`Error updating cart item ${existingItem.id}:`, error)
+        throw error
+      }
+
+      console.log(`addToCart: Item updated successfully`)
+      return data
+    } else {
+      console.log(`addToCart: Adding new item to cart ${cart.id}`)
+
+      // Add new item
+      const { data, error } = await supabase
+        .from("cart_items")
+        .insert({ cart_id: cart.id, product_id: productId, quantity })
+        .select()
+        .single()
+
+      if (error) {
+        console.error(`Error adding item to cart ${cart.id}:`, error)
+        throw error
+      }
+
+      console.log(`addToCart: New item added successfully with ID ${data.id}`)
+      return data
     }
-
-    return data
+  } catch (error) {
+    console.error("Error in addToCart:", error)
+    throw error
   }
 }
 
